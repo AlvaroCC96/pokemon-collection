@@ -86,7 +86,10 @@ export function CardCarousel({ items }: { items: CardWithLatestPrice[] }) {
               >
                 <div className="relative aspect-[3/4] w-full">
                   <CardImage src={card.image_url} alt={card.name} className="h-full w-full" />
-                  <span className="absolute right-2 top-2 rounded-md border border-pokedex-red/30 bg-black/70 px-2 py-0.5 font-mono text-xs font-medium text-pokedex-text backdrop-blur">
+                  {/* No backdrop-blur here -- it forces a repaint every
+                      frame while Embla transforms the track during a
+                      swipe, which read as flicker on some mobile GPUs. */}
+                  <span className="absolute right-2 top-2 rounded-md border border-pokedex-red/30 bg-black/80 px-2 py-0.5 font-mono text-xs font-medium text-pokedex-text">
                     x{card.quantity}
                   </span>
                 </div>

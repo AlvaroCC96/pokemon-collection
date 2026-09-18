@@ -22,6 +22,7 @@ function Placeholder({ className }: { className: string }) {
 
 export function CardImage({ src, alt, className = '' }: CardImageProps) {
   const [failed, setFailed] = useState(false)
+  const [loaded, setLoaded] = useState(false)
 
   if (!src || failed) {
     return <Placeholder className={className} />
@@ -32,7 +33,11 @@ export function CardImage({ src, alt, className = '' }: CardImageProps) {
       src={src}
       alt={alt}
       loading="lazy"
-      className={`object-contain ${className}`}
+      // Lazy images popping in abruptly reads as a "flicker", especially
+      // swiping through several in a row on the mobile carousel -- a short
+      // fade softens the pop into something that feels intentional.
+      className={`object-contain transition-opacity duration-200 ${loaded ? 'opacity-100' : 'opacity-0'} ${className}`}
+      onLoad={() => setLoaded(true)}
       onError={() => setFailed(true)}
     />
   )
