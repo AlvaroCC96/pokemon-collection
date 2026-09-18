@@ -1,0 +1,19 @@
+# Entorno
+.env
+backend/.venv/
+__pycache__/
+*.pyc
+
+# Datos locales
+data/*.db
+data/*.db-journal
+
+# Frontend (ETAPA 6)
+frontend/node_modules/
+frontend/dist/
+
+# Editores / SO
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

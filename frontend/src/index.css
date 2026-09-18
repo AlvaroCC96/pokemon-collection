@@ -1,0 +1,43 @@
+@import 'tailwindcss';
+
+/* Centralized Pokedex theme tokens -- change the palette here, not per
+ * component. Tailwind v4 turns each --color-* var into utilities
+ * (bg-pokedex-bg, text-pokedex-muted, border-pokedex-red/40, etc). */
+@theme {
+  --font-sans:
+    'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  --color-pokedex-bg: #0b0b0d;
+  --color-pokedex-surface: #141416;
+  --color-pokedex-surface-2: #1a1a1e;
+  --color-pokedex-border: #2a2a30;
+  --color-pokedex-red: #e33535;
+  --color-pokedex-red-dark: #a61e2a;
+  --color-pokemon-yellow: #ffcb05;
+  --color-price-gold: #e5a900;
+  --color-pokedex-text: #f5f5f5;
+  --color-pokedex-muted: #a3a3a3;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-pokedex-bg text-pokedex-text antialiased;
+}
+
+/* Thin, unobtrusive scrollbar to match the dark UI (webkit browsers) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: theme(colors.pokedex-border);
+  border-radius: 9999px;
+}
