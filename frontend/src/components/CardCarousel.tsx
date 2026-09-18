@@ -77,7 +77,12 @@ export function CardCarousel({ items }: { items: CardWithLatestPrice[] }) {
         tabIndex={0}
         onKeyDown={handleKeyDown}
       >
-        <div className="-ml-3 flex touch-pan-y">
+        {/* will-change hints the browser to promote this to its own GPU
+            layer ahead of time, so Embla's translate3d during a swipe moves
+            an already-rasterized layer instead of re-rasterizing the large
+            card images on every frame -- that live resampling is what reads
+            as a quick pixelated flicker mid-swipe. */}
+        <div className="-ml-3 flex touch-pan-y will-change-transform">
           {items.map(({ card, latestSnapshot }) => (
             <div key={card.id} className="min-w-0 shrink-0 grow-0 basis-[86%] pl-3">
               <Link
