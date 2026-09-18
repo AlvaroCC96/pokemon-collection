@@ -32,7 +32,7 @@ export function UpdateAllButton({ onFinished }: UpdateAllButtonProps) {
         type="button"
         onClick={handleClick}
         disabled={running}
-        className="inline-flex items-center gap-2 rounded-full border border-pokedex-border bg-pokedex-surface-2 px-4 py-2 text-sm font-medium text-pokedex-text transition hover:border-pokedex-red/40 disabled:cursor-not-allowed disabled:opacity-60"
+        className="inline-flex items-center gap-2 rounded-md border border-pokedex-border bg-pokedex-surface-2 px-4 py-2 text-sm font-medium text-pokedex-text transition hover:border-pokedex-red/40 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {running && (
           <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-pokedex-border border-t-pokedex-red" />
@@ -41,10 +41,10 @@ export function UpdateAllButton({ onFinished }: UpdateAllButtonProps) {
       </button>
 
       {running && (
-        <p className="text-xs uppercase tracking-wide text-pokedex-muted">Updating market data...</p>
+        <p className="font-mono text-[11px] uppercase tracking-wide text-pokedex-muted">Updating market data...</p>
       )}
       {!running && result && (
-        <p className="text-xs uppercase tracking-wide text-pokedex-muted">
+        <p className="font-mono text-[11px] uppercase tracking-wide text-pokedex-muted">
           Updated: {result.updated} · Failed: {result.failed}
         </p>
       )}

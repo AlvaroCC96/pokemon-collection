@@ -17,11 +17,11 @@ export function CandidateCard({ candidate, selected = false, onSelect }: Candida
     <button
       type="button"
       onClick={onSelect}
-      className={`flex flex-col overflow-hidden rounded-2xl border bg-pokedex-surface-2/60 text-left transition ${
-        selected ? 'border-pokedex-red ring-2 ring-pokedex-red/40' : 'border-pokedex-border hover:border-pokedex-red/30'
+      className={`flex flex-col rounded-lg border text-left transition ${
+        selected ? 'border-pokedex-red ring-2 ring-pokedex-red/40' : 'border-transparent hover:border-pokedex-red/30'
       }`}
     >
-      <div className="aspect-[3/4] w-full bg-pokedex-bg">
+      <div className="aspect-[3/4] w-full">
         <CardImage src={candidate.image_url} alt={candidate.name} className="h-full w-full" />
       </div>
       <div className="flex flex-col gap-0.5 p-2.5">

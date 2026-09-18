@@ -13,7 +13,7 @@ interface IdentificationPanelProps {
 
 function PanelShell({ children }: { children: ReactNode }) {
   return (
-    <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-pokedex-border bg-pokedex-surface-2/60">
+    <div className="relative flex h-full flex-col overflow-hidden rounded-lg border border-pokedex-border bg-pokedex-surface-2">
       <ScanlineTopBar />
       <div className="flex flex-1 flex-col gap-4 p-5 sm:p-6">{children}</div>
     </div>
@@ -22,7 +22,7 @@ function PanelShell({ children }: { children: ReactNode }) {
 
 function StatusChip({ label, led }: { label: string; led: 'red' | 'yellow' | 'gold' | 'emerald' | 'muted' }) {
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-full border border-pokedex-border bg-pokedex-bg px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-pokedex-muted">
+    <span className="inline-flex items-center gap-1.5 rounded-md border border-pokedex-border bg-pokedex-bg px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[0.15em] text-pokedex-muted">
       <Led color={led} />
       {label}
     </span>
@@ -34,17 +34,6 @@ function PanelHeading({ status, led }: { status: string; led: 'red' | 'yellow' |
     <div className="flex items-center justify-between">
       <SectionLabel>Target</SectionLabel>
       <StatusChip label={status} led={led} />
-    </div>
-  )
-}
-
-function EmptySilhouette() {
-  return (
-    <div className="flex aspect-[3/4] w-full max-w-[220px] flex-col items-center justify-center gap-2 self-center rounded-xl border border-dashed border-pokedex-border bg-pokedex-bg/60 text-pokedex-muted/50">
-      <svg viewBox="0 0 24 24" fill="none" className="h-10 w-10" aria-hidden="true">
-        <rect x="4" y="3" width="16" height="18" rx="2" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M8 8h8M8 12h8M8 16h5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      </svg>
     </div>
   )
 }
@@ -70,7 +59,7 @@ function CandidatePreview({
 
   return (
     <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
-      <div className="aspect-[3/4] w-full max-w-[200px] shrink-0 self-center overflow-hidden rounded-xl border border-pokedex-border bg-pokedex-bg sm:self-start">
+      <div className="aspect-[3/4] w-full max-w-[200px] shrink-0 self-center sm:self-start">
         <CardImage src={candidate.image_url} alt={candidate.name} className="h-full w-full" />
       </div>
       <div className="flex flex-1 flex-col gap-3">
@@ -90,7 +79,7 @@ function CandidatePreview({
             type="button"
             onClick={() => onCreate(candidate)}
             disabled={creating}
-            className="rounded-full bg-price-gold px-4 py-2 text-sm font-semibold text-black transition hover:bg-pokemon-yellow disabled:cursor-not-allowed disabled:opacity-60"
+            className="rounded-md bg-price-gold px-4 py-2 text-sm font-semibold text-black transition hover:bg-pokemon-yellow disabled:cursor-not-allowed disabled:opacity-60"
           >
             {creating ? 'Agregando…' : 'Agregar a mi colección'}
           </button>
@@ -99,7 +88,7 @@ function CandidatePreview({
               type="button"
               onClick={() => onCreate(null)}
               disabled={creating}
-              className="rounded-full border border-pokedex-border px-4 py-2 text-sm text-pokedex-text/80 transition hover:bg-pokedex-surface disabled:opacity-60"
+              className="rounded-md border border-pokedex-border px-4 py-2 text-sm text-pokedex-text/80 transition hover:bg-pokedex-surface disabled:opacity-60"
             >
               No es esta, guardar manualmente
             </button>
@@ -123,20 +112,9 @@ export function IdentificationPanel({ searching, result, selected, creating, onC
     )
   }
 
-  if (!result) {
-    return (
-      <PanelShell>
-        <PanelHeading status="Ready" led="muted" />
-        <div className="flex flex-1 flex-col items-center justify-center gap-3 py-4 text-center">
-          <EmptySilhouette />
-          <p className="text-sm font-medium text-pokedex-muted">Esperando identificación</p>
-          <p className="max-w-[220px] text-xs text-pokedex-muted/60">
-            Ingresa nombre y número de coleccionista para buscar en el catálogo.
-          </p>
-        </div>
-      </PanelShell>
-    )
-  }
+  // Nothing searched yet: the form panel alone carries the screen, no
+  // placeholder "waiting for a card" panel next to it.
+  if (!result) return null
 
   if (result.status === 'not_found') {
     return (
@@ -149,7 +127,7 @@ export function IdentificationPanel({ searching, result, selected, creating, onC
             type="button"
             onClick={() => onCreate(null)}
             disabled={creating}
-            className="mt-1 rounded-full border border-pokedex-border bg-pokedex-surface px-4 py-2 text-sm font-medium text-pokedex-text transition hover:border-pokedex-red/40 disabled:opacity-60"
+            className="mt-1 rounded-md border border-pokedex-border bg-pokedex-surface px-4 py-2 text-sm font-medium text-pokedex-text transition hover:border-pokedex-red/40 disabled:opacity-60"
           >
             {creating ? 'Guardando…' : 'Guardar de todas formas'}
           </button>

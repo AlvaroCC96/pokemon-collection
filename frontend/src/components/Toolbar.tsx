@@ -7,10 +7,7 @@ interface ToolbarProps {
   onUpdateAllFinished: () => void
 }
 
-/** Search + primary actions, with room reserved for future filters (idioma,
- * set, con/sin valoración, orden) without needing a layout change once the
- * backend supports them -- the disabled "Filtros" button is a placeholder,
- * not a decoration: it marks where that control will live. */
+/** Search + primary actions. */
 export function Toolbar({ search, onSearchChange, onUpdateAllFinished }: ToolbarProps) {
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -29,31 +26,14 @@ export function Toolbar({ search, onSearchChange, onUpdateAllFinished }: Toolbar
           value={search}
           onChange={(event) => onSearchChange(event.target.value)}
           placeholder="Buscar por nombre, número o set…"
-          className="w-full rounded-full border border-pokedex-border bg-pokedex-surface py-2.5 pl-10 pr-4 text-sm text-pokedex-text placeholder:text-pokedex-muted focus:border-pokedex-red/50 focus:outline-none focus:ring-2 focus:ring-pokedex-red/15"
+          className="w-full rounded-md border border-pokedex-border bg-pokedex-surface py-2.5 pl-10 pr-4 text-sm text-pokedex-text placeholder:text-pokedex-muted focus:border-pokedex-red/50 focus:outline-none focus:ring-2 focus:ring-pokedex-red/15"
         />
       </div>
 
       <div className="flex flex-wrap items-center gap-2">
-        <button
-          type="button"
-          disabled
-          title="Filtros (próximamente)"
-          className="hidden shrink-0 items-center gap-1.5 rounded-full border border-pokedex-border px-3.5 py-2.5 text-sm text-pokedex-muted sm:inline-flex"
-        >
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="h-4 w-4">
-            <path
-              d="M4 6h16M7 12h10M10 18h4"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-          </svg>
-          Filtros
-        </button>
-
         <Link
           to="/cards/new"
-          className="inline-flex flex-1 shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full bg-price-gold px-4 py-2.5 text-sm font-semibold text-black transition hover:bg-pokemon-yellow sm:flex-none"
+          className="inline-flex flex-1 shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-md bg-price-gold px-4 py-2.5 text-sm font-semibold text-black transition hover:bg-pokemon-yellow sm:flex-none"
         >
           + Agregar carta
         </Link>

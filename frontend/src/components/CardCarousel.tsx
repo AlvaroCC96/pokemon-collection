@@ -82,11 +82,11 @@ export function CardCarousel({ items }: { items: CardWithLatestPrice[] }) {
             <div key={card.id} className="min-w-0 shrink-0 grow-0 basis-[86%] pl-3">
               <Link
                 to={`/cards/${card.id}`}
-                className="flex flex-col gap-3 rounded-2xl border border-pokedex-border bg-pokedex-surface-2 p-3 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pokedex-red/50"
+                className="relative flex flex-col gap-3 rounded-lg border border-transparent p-3 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pokedex-red/50"
               >
-                <div className="relative aspect-[3/4] w-full overflow-hidden rounded-xl bg-pokedex-bg">
+                <div className="relative aspect-[3/4] w-full">
                   <CardImage src={card.image_url} alt={card.name} className="h-full w-full" />
-                  <span className="absolute right-2 top-2 rounded-full border border-pokedex-red/20 bg-black/60 px-2 py-0.5 text-xs font-medium text-pokedex-text backdrop-blur">
+                  <span className="absolute right-2 top-2 rounded-md border border-pokedex-red/30 bg-black/70 px-2 py-0.5 font-mono text-xs font-medium text-pokedex-text backdrop-blur">
                     x{card.quantity}
                   </span>
                 </div>
@@ -104,7 +104,7 @@ export function CardCarousel({ items }: { items: CardWithLatestPrice[] }) {
                       <PercentBadge value={latestSnapshot.price_change_percent} />
                     </div>
                   ) : (
-                    <span className="mt-1 w-fit rounded-full border border-dashed border-price-gold/25 px-2 py-0.5 text-xs text-price-gold/60">
+                    <span className="mt-1 w-fit rounded-md border border-dashed border-price-gold/25 px-2 py-0.5 text-xs text-price-gold/60">
                       Sin valoración
                     </span>
                   )}
@@ -143,7 +143,7 @@ export function CardCarousel({ items }: { items: CardWithLatestPrice[] }) {
             ))}
           </div>
         ) : (
-          <span className="min-w-[64px] text-center text-sm text-pokedex-muted">
+          <span className="min-w-[64px] text-center font-mono text-sm text-pokedex-muted">
             <span className="font-semibold text-pokedex-text">{selectedIndex + 1}</span> / {items.length}
           </span>
         )}

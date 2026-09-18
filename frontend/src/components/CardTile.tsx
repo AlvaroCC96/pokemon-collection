@@ -8,15 +8,15 @@ export function CardTile({ card, latestSnapshot }: CardWithLatestPrice) {
   return (
     <Link
       to={`/cards/${card.id}`}
-      className="group flex flex-col overflow-hidden rounded-2xl border border-pokedex-border bg-pokedex-surface-2/60 transition hover:-translate-y-0.5 hover:border-pokedex-red/40 hover:shadow-lg hover:shadow-black/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pokedex-red/50"
+      className="group relative flex flex-col overflow-hidden rounded-lg border border-transparent transition hover:-translate-y-0.5 hover:border-pokedex-red/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pokedex-red/50"
     >
-      <div className="relative aspect-[3/4] w-full bg-pokedex-bg">
+      <div className="relative aspect-[3/4] w-full">
         <CardImage
           src={card.image_url}
           alt={card.name}
           className="h-full w-full transition duration-300 group-hover:scale-[1.03]"
         />
-        <span className="absolute right-2 top-2 rounded-full border border-pokedex-red/20 bg-black/60 px-2 py-0.5 text-xs font-medium text-pokedex-text backdrop-blur">
+        <span className="absolute right-2 top-2 rounded-md border border-pokedex-red/30 bg-black/70 px-2 py-0.5 font-mono text-xs font-medium text-pokedex-text backdrop-blur">
           x{card.quantity}
         </span>
       </div>
@@ -37,7 +37,7 @@ export function CardTile({ card, latestSnapshot }: CardWithLatestPrice) {
               <PercentBadge value={latestSnapshot.price_change_percent} className="text-xs" />
             </div>
           ) : (
-            <span className="rounded-full border border-dashed border-price-gold/25 px-2 py-0.5 text-xs text-price-gold/60">
+            <span className="rounded-md border border-dashed border-price-gold/25 px-2 py-0.5 text-xs text-price-gold/60">
               Sin valoración
             </span>
           )}

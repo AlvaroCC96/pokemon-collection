@@ -64,7 +64,7 @@ export function HomePage() {
             action={
               <Link
                 to="/cards/new"
-                className="rounded-full bg-price-gold px-4 py-2 text-sm font-semibold text-black transition hover:bg-pokemon-yellow"
+                className="rounded-md bg-price-gold px-4 py-2 text-sm font-semibold text-black transition hover:bg-pokemon-yellow"
               >
                 + Agregar primera carta
               </Link>

@@ -1,12 +1,13 @@
 import { useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { ApiError, cardsApi } from '../api'
 import { ConfidenceBadge, MarketScopeBadge } from '../components/Badges'
 import { CardImage } from '../components/CardImage'
 import { ErrorState } from '../components/ErrorState'
 import { LoadingState } from '../components/LoadingState'
 import { PercentBadge } from '../components/PercentBadge'
-import { Led, ModeTag, PokedexHeader, PokedexScreen, PokedexShell, ScanlineTopBar, SectionLabel } from '../components/Pokedex'
+import { BackLink, Led, ModeTag, PokedexHeader, PokedexScreen, PokedexShell, ScanlineTopBar, SectionLabel, TrashIcon } from '../components/Pokedex'
+import { pokedexButtonBase, pokedexButtonVariants } from '../components/pokedexButtonStyles'
 import { PriceChart } from '../components/PriceChart'
 import { useAsync } from '../hooks/useAsync'
 import { formatDate, formatMoney } from '../utils/format'
@@ -83,9 +84,7 @@ export function CardDetailPage() {
       <PokedexScreen>
         <div className="mx-auto flex w-full max-w-5xl flex-col gap-6">
           <div className="flex items-center justify-between">
-            <Link to="/" className="text-sm text-pokedex-muted hover:text-pokedex-text">
-              ← Volver a mi colección
-            </Link>
+            <BackLink />
             <ModeTag led="red">Card data</ModeTag>
           </div>
 
@@ -93,13 +92,13 @@ export function CardDetailPage() {
               real desktop viewport gets the side-by-side layout, per the
               "don't compress the desktop layout into the phone" requirement. */}
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,340px)_1fr] lg:gap-8">
-            <div className="mx-auto aspect-[3/4] w-full max-w-[340px] overflow-hidden rounded-2xl border border-pokedex-border bg-pokedex-bg lg:mx-0">
+            <div className="mx-auto aspect-[3/4] w-full max-w-[340px] lg:mx-0">
               <CardImage src={c.image_url} alt={c.name} className="h-full w-full" />
             </div>
 
             <div className="flex flex-col gap-4">
               <div>
-                <div className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-pokedex-muted">
+                <div className="flex items-center gap-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.15em] text-pokedex-muted">
                   <Led color={c.identified ? 'emerald' : 'muted'} />
                   {c.identified ? 'Identified' : 'Unverified'}
                 </div>
@@ -109,15 +108,15 @@ export function CardDetailPage() {
                   {c.set_name ? ` · ${c.set_name}` : ''}
                 </p>
                 <div className="mt-2 flex flex-wrap gap-2 text-xs text-pokedex-muted">
-                  {c.rarity && <span className="rounded-full border border-pokedex-border px-2.5 py-0.5">{c.rarity}</span>}
+                  {c.rarity && <span className="rounded-md border border-pokedex-border px-2.5 py-0.5">{c.rarity}</span>}
                   {c.language && (
-                    <span className="rounded-full border border-pokedex-border px-2.5 py-0.5">{c.language}</span>
+                    <span className="rounded-md border border-pokedex-border px-2.5 py-0.5">{c.language}</span>
                   )}
-                  <span className="rounded-full border border-pokedex-border px-2.5 py-0.5">Cantidad: {c.quantity}</span>
+                  <span className="rounded-md border border-pokedex-border px-2.5 py-0.5">Cantidad: {c.quantity}</span>
                 </div>
               </div>
 
-              <div className="overflow-hidden rounded-2xl border border-pokedex-border bg-pokedex-surface-2/60">
+              <div className="overflow-hidden rounded-lg border border-pokedex-border bg-pokedex-surface-2">
                 <ScanlineTopBar />
                 <div className="p-4">
                   <SectionLabel color="gold">Value</SectionLabel>
@@ -154,7 +153,7 @@ export function CardDetailPage() {
                     type="button"
                     onClick={handleUpdatePrice}
                     disabled={updating}
-                    className="mt-4 inline-flex items-center gap-2 rounded-full border border-pokedex-border bg-pokedex-surface px-4 py-2 text-sm font-medium text-pokedex-text transition hover:border-pokedex-red/40 disabled:cursor-not-allowed disabled:opacity-60"
+                    className="mt-4 inline-flex items-center gap-2 rounded-md border border-pokedex-border bg-pokedex-surface px-4 py-2 text-sm font-medium text-pokedex-text transition hover:border-pokedex-red/40 disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     {updating && (
                       <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-pokedex-border border-t-pokedex-red" />
@@ -168,7 +167,7 @@ export function CardDetailPage() {
             </div>
           </div>
 
-          <section className="rounded-2xl border border-pokedex-border bg-pokedex-surface-2/60 p-4">
+          <section className="rounded-lg border border-pokedex-border bg-pokedex-surface-2 p-4">
             <div className="mb-3">
               <SectionLabel color="gold">Historical data</SectionLabel>
             </div>
@@ -181,7 +180,7 @@ export function CardDetailPage() {
           </section>
 
           {latest && latest.observations.length > 0 && (
-            <section className="rounded-2xl border border-pokedex-border bg-pokedex-surface-2/60 p-4">
+            <section className="rounded-lg border border-pokedex-border bg-pokedex-surface-2 p-4">
               <div className="mb-3">
                 <SectionLabel>Sources</SectionLabel>
               </div>
@@ -222,8 +221,9 @@ export function CardDetailPage() {
             type="button"
             onClick={handleDelete}
             disabled={deleting}
-            className="self-start text-xs text-pokedex-muted underline decoration-dotted hover:text-pokedex-red disabled:opacity-60"
+            className={`${pokedexButtonBase} ${pokedexButtonVariants.destructive} self-start disabled:cursor-not-allowed disabled:opacity-60`}
           >
+            <TrashIcon />
             Eliminar carta de mi colección
           </button>
         </div>
